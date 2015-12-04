@@ -135,7 +135,7 @@ public class Person implements Serializable {
 	// each operation.
 	// How would you change the DAO to not having to create the entity manager
 	// every time?
-	public static Person getPersonById(Long personId) {
+	public static Person getPersonById(int personId) {
 		EntityManager em = LifeCoachDao.instance.createEntityManager();
 		Person p = em.find(Person.class, personId);
 		LifeCoachDao.instance.closeConnections(em);

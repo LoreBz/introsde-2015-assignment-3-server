@@ -18,7 +18,7 @@ public class PeopleImpl implements People {
 	@Override
 	public Person readPerson(Long id) {
 		System.out.println("---> Reading Person by id = " + id);
-		Person p = Person.getPersonById(id);
+		Person p = Person.getPersonById((int) (long) id);
 		if (p != null) {
 			System.out.println("---> Found Person by id = " + id + " => "
 					+ p.getName());
@@ -35,7 +35,7 @@ public class PeopleImpl implements People {
 
 	@Override
 	public boolean deletePerson(Long id) {
-		Person p = Person.getPersonById(id);
+		Person p = Person.getPersonById((int) (long) id);
 		if (p != null) {
 			Person.removePerson(p);
 			return true;
@@ -74,7 +74,7 @@ public class PeopleImpl implements People {
 
 	@Override
 	public LifeStatus savePersonMeasure(Long personId, LifeStatus measure) {
-		Person existingPerson = Person.getPersonById(personId);
+		Person existingPerson = Person.getPersonById((int) (long) personId);
 		if (existingPerson == null) {
 			return null;
 		}
