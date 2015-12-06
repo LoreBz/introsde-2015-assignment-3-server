@@ -199,12 +199,14 @@ public class PeopleImpl implements People {
 
 	@Override
 	public Person createPerson(Person person) {
-		return Person.savePerson(person);
+		Person saved=Person.savePerson(person);
+		return saved;
 	}
 
 	@Override
 	public List<Person> getPeople() {
-		return Person.getAll();
+		List<Person> retval = Person.getAll();
+		return retval;
 	}
 
 }

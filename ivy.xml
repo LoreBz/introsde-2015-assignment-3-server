@@ -38,5 +38,6 @@
         <dependency org="net.sf.dozer" name="dozer" rev="5.5.1"/>
         <dependency org="joda-time" name="joda-time" rev="2.4"/>
         <dependency org="org.slf4j" name="slf4j-nop" rev="1.7.7"/>
+        <dependency org="org.apache.cxf.xjc-utils" name="cxf-xjc-runtime" rev="3.0.5"/>
     </dependencies>
 </ivy-module>

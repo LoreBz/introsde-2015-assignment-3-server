@@ -5,7 +5,6 @@
 	<persistence-unit name="introsde-jpa">
 		<class>introsde.document.model.HealthMeasureHistory</class>
 		<class>introsde.document.model.LifeStatus</class>
-		<class>introsde.document.model.MeasureDefaultRange</class>
 		<class>introsde.document.model.MeasureDefinition</class>
 		<class>introsde.document.model.Person</class>	
 		<properties>

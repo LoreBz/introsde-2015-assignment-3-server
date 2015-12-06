@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,16 +22,19 @@ import javax.persistence.TableGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
 /**
  * The persistent class for the "Person" database table.
  * 
  */
 @Entity
+@Cacheable(false)
 @Table(name = "Person")
 @NamedQuery(name = "Person.findAll", query = "SELECT p FROM Person p")
-@XmlRootElement
+// @XmlRootElement
+@XmlType(propOrder = { "idPerson", "name", "lastname", "birthdate", "email",
+		"username", "lifeStatus" })
 public class Person implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -71,7 +75,7 @@ public class Person implements Serializable {
 	}
 
 	public Date getBirthdate() {
-		return this.birthdate;
+		return birthdate;
 	}
 
 	public void setBirthdate(Date birthdate) {
