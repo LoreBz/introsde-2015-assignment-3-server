@@ -1,2 +1,5 @@
 /build/
 /WebContent/WEB-INF/lib/
+.project
+.settings
+/ivy/

@@ -30,7 +30,33 @@ public class PeopleImpl implements People {
 
 	@Override
 	public Person updatePerson(Person person) {
-		return Person.updatePerson(person);
+
+		if (person.getIdPerson() < 1) {
+			throw new RuntimeException(
+					"Impossible to update a person without providing a personID");
+		}
+		System.out.println("--> Updating Person... " + person.getIdPerson());
+		System.out.println("--> " + person.toString());
+		Person existing = Person.getPersonById(person.getIdPerson());
+		Person retval = null;
+
+		if (existing == null) {
+			throw new RuntimeException("Updating person: Person with "
+					+ person.getIdPerson() + " not found");
+		} else {
+			System.out.println("preparing update..");
+			Person p = new Person();
+			p.setIdPerson(person.getIdPerson());
+			p.setName(person.getName());
+			p.setLastname(person.getLastname());
+			p.setBirthdate(person.getBirthdate());
+			// p.setBirthdate(existing.getBirthdate());
+			p.setLifeStatus(existing.getLifeStatus());
+
+			retval = Person.updatePerson(p);
+
+		}
+		return retval;
 	}
 
 	@Override
@@ -133,13 +159,35 @@ public class PeopleImpl implements People {
 
 	@Override
 	public HealthMeasureHistory updatePersonMeasure(Long id,
-			HealthMeasureHistory hm) {
-		HealthMeasureHistory retrievedHM = HealthMeasureHistory
-				.getHealthMeasureHistoryById(hm.getIdMeasureHistory());
-		if (id != retrievedHM.getPerson().getIdPerson()) {
-			return HealthMeasureHistory.updateHealthMeasureHistory(hm);
+			HealthMeasureHistory record) {
+		System.out.println("--> Updating MeasureRecord... "
+				+ record.getIdMeasureHistory());
+		System.out.println("--> " + record.toString());
+		HealthMeasureHistory res = null;
+		HealthMeasureHistory existing = HealthMeasureHistory
+				.getHealthMeasureHistoryById(record.getIdMeasureHistory());
+
+		if (existing == null) {
+			res = null;
+		} else {
+			System.out.println("processing request 10, updating measure...");
+
+			record.setIdMeasureHistory(existing.getIdMeasureHistory());
+			record.setPerson(existing.getPerson());
+			record.setMeasureDefinition(existing.getMeasureDefinition());
+			record.setTimestamp(existing.getTimestamp());
+			// if the client has not selected a timestamp value we set it to the
+			// current time
+			// if (record.getTimestamp() == null) {
+			// record.setTimestamp(new Date(System.currentTimeMillis()));
+			// }
+			// we assume the client has passed us a correct value, so
+			// record.getValue()!=null
+			if (record.getValue() != null) {
+				res = HealthMeasureHistory.updateHealthMeasureHistory(record);
+			}
 		}
-		return null;
+		return res;
 	}
 
 	private List<HealthMeasureHistory> getHMhistoryByUserAndType(Long id2,
@@ -199,7 +247,7 @@ public class PeopleImpl implements People {
 
 	@Override
 	public Person createPerson(Person person) {
-		Person saved=Person.savePerson(person);
+		Person saved = Person.savePerson(person);
 		return saved;
 	}
 
